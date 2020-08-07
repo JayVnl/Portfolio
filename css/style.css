@@ -17,7 +17,7 @@ body,
 html {
   width: 100vw;
   height: 100%;
-  background: #1a1a1d;
+  background: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FpEeUsp1.jpg&f=1&nofb=1");
   background-size: cover;
   position: absolute;
   line-height: 1.1em;
@@ -33,6 +33,10 @@ body {
   position: relative;
 }
 
+#home {
+  display: none;
+}
+
 .main-menu {
   position: fixed;
   width: 100%;
@@ -46,7 +50,6 @@ body {
 }
 
 #work {
-  display: none;
   width: calc(100vw - 180px);
   height: auto;
   margin: 0 auto;
@@ -59,15 +62,64 @@ body {
   line-height: 130px;
 }
 #work .container {
+  position: relative;
   margin-top: 90px;
   margin-bottom: 90px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 90px;
+  transform-style: preserve-3d;
 }
-#work .container div img {
+#work .container .box {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 0.4s ease-in-out;
+}
+#work .container .box .img-box {
+  position: relative;
+}
+#work .container .box .img-box img {
   width: 100%;
   height: auto;
+  border-radius: 8px;
+  opacity: 0.75;
+  transition: 0.4s ease-in-out;
+}
+#work .container .box .content {
+  position: absolute;
+  width: 80%;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%) translateZ(20px) scaleY(0);
+  transform-origin: top;
+  padding: 15px;
+  transition: 0.5s ease-in-out;
+  transform-style: preserve-3d;
+}
+#work .container .box .content .client {
+  color: #a5a5a5;
+}
+#work .container .box .content .project {
+  font-size: 1.2em;
+  line-height: 30px;
+}
+#work .container .box:hover {
+  box-shadow: 0 50px 80px rgba(0, 0, 0, 0.2);
+  transition: 0.4s ease-in-out;
+  cursor: pointer;
+}
+#work .container .box:hover img {
+  opacity: 1;
+  transition: 0.4s ease-in-out;
+}
+#work .container .box:hover .content {
+  transform: translateX(-50%) translateZ(50px) scaleY(1);
+  padding: 15px;
+}
+#work .container .box:hover .content .project {
+  line-height: 30px;
 }
 
 #about {
@@ -75,7 +127,6 @@ body {
 }
 
 #top-menu {
-  display: none;
   position: fixed;
   width: 100%;
   height: 100px;

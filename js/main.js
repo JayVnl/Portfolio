@@ -1,5 +1,4 @@
 // NAVIGATION REDIRECTS
-
 $(document).on("click", ".to-home", function (element) {
   $("#work").hide();
   $("#about").hide();

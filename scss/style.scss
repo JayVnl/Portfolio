@@ -20,7 +20,7 @@ body,
 html {
   width: 100vw;
   height: 100%;
-  background: $background;
+  background: url('https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallpapercave.com%2Fwp%2FpEeUsp1.jpg&f=1&nofb=1');
   background-size: cover;
   position: absolute;
   line-height: 1.1em;
@@ -39,7 +39,7 @@ body {
 // HOME PAGE
 
 #home {
-  // display: none;
+  display: none;
 }
 
 .main-menu {
@@ -58,7 +58,7 @@ body {
 // WORK PAGE
 
 #work {
-  display: none;
+  // display: none;
   width: calc(100vw - 180px);
   height: auto;
   margin: 0 auto;
@@ -72,17 +72,72 @@ body {
   }
 
   .container {
+    position: relative;
     margin-top: 90px;
     margin-bottom: 90px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 90px;
+    transform-style: preserve-3d;
 
-    div {
+    .box {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: .4s ease-in-out;
+
+      .img-box {
+        position: relative;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 8px;
+          opacity: .75;
+          transition: .4s ease-in-out;
+        }
+      }
+
+      .content {
+        position: absolute;
+        width: 80%;
+        background: rgba(0, 0, 0, .8);
+        border-radius: 8px;
+        left: 50%;
+        bottom: 25px;
+        transform: translateX(-50%) translateZ(20px) scaleY(0);
+        transform-origin: top;
+        padding: 15px;
+        transition: .5s ease-in-out;
+        transform-style: preserve-3d;
+
+        .client {
+          color: rgb(165, 165, 165);
+        }
+
+        .project {
+          font-size: 1.2em;
+          line-height: 30px;
+        }
+      }
+    }
+
+    .box:hover {
+      box-shadow: 0 50px 80px rgba(0, 0, 0, .2);
+      transition: .4s ease-in-out;
+      cursor: pointer;
 
       img {
-        width: 100%;
-        height: auto;
+        opacity: 1;
+        transition: .4s ease-in-out;
+      }
+
+      .content {
+        transform: translateX(-50%) translateZ(50px) scaleY(1);
+        padding: 15px;
+
+        .project {
+          line-height: 30px;
+        }
       }
     }
   }
@@ -97,12 +152,11 @@ body {
 // TOP MENU
 
 #top-menu {
-  display: none;
+  // display: none;
   position: fixed;
   width: 100%;
   height: 100px;
   line-height: 100px;
-  // background: rgba(0, 0, 0, .4);
   z-index: 100;
   padding-right: 95px;
   text-align: right;
