@@ -31,6 +31,11 @@ $(document).on("click", ".link", function (event) {
     link[i].innerHTML === destinationName
       ? (link[i].style.borderBottom = "solid 1px #fff")
       : (link[i].style.borderBottom = "solid 1px transparent");
-    console.log(link[i].innerHTML);
   }
+});
+
+$(window).on("scroll", function () {
+  $(window).scrollTop() > 100
+    ? $("#top-menu").css("background", "rgba(0, 0, 0, .8)")
+    : $("#top-menu").css("background", "transparent");
 });

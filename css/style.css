@@ -10,13 +10,12 @@ a {
 
 body,
 html {
-  width: 100vw;
-  height: 100%;
+  width: calc(100vw - 180px);
+  height: 100vh;
   background-color: #000000;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
   position: absolute;
   line-height: 1.1em;
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -34,30 +33,33 @@ body {
   padding-bottom: 2px;
   transition: 0.3s ease-in-out;
 }
-
-#home {
-  width: 100vw;
-  height: 100vh;
+.link:hover {
+  opacity: 0.7;
 }
 
-.main-menu {
+#home {
+  width: 100%;
+  margin: 0 90px;
+}
+#home .main-menu {
   width: 100%;
   line-height: 100vh;
   text-align: center;
   font-size: 1.4em;
   font-weight: 300;
 }
-.main-menu span {
+#home .main-menu span {
   margin: 20px;
 }
 
 #work {
   display: none;
-  width: calc(100vw - 180px);
+  width: 100%;
   height: auto;
-  margin: 0 auto;
-  margin-top: 100px;
+  margin: 0 90px;
+  margin-top: 90px;
   text-align: center;
+  overflow-y: visible;
 }
 #work .container {
   position: relative;
@@ -80,13 +82,13 @@ body {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  opacity: 0.85;
+  opacity: 0.8;
   transition: 0.4s ease-in-out;
 }
 #work .container .box .content {
   position: absolute;
   width: 80%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 8px;
   left: 50%;
   bottom: 25px;
@@ -122,6 +124,37 @@ body {
 
 #about {
   display: none;
+  width: 100%;
+  height: auto;
+  margin: 0 90px;
+  margin-top: 90px;
+}
+#about .container {
+  position: relative;
+  margin-top: 90px;
+  margin-bottom: 90px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-items: center;
+  align-items: center;
+}
+#about .container .profile {
+  width: 18vw;
+  height: 18vw;
+  background: white;
+  background-size: cover;
+}
+#about .container .info {
+  width: 70%;
+}
+#about .icons {
+  position: relative;
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+}
+#about .icons img {
+  padding: 0 45px;
 }
 
 #top-menu {
@@ -130,14 +163,12 @@ body {
   width: 100%;
   height: 100px;
   line-height: 100px;
+  padding-right: 80px;
   z-index: 100;
-  padding-right: 95px;
   text-align: right;
   font-size: 1.2em;
   font-weight: 300;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
   box-sizing: border-box;
 }
 #top-menu span {
@@ -146,23 +177,22 @@ body {
 
 .divider {
   position: relative;
-  margin-top: 100px;
+  margin-top: 90px;
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
-.divider .line {
-  background: white;
-  width: 100%;
-  height: 1px;
-}
-.divider .header {
-  background: #000;
+.divider span {
   padding: 0 25px;
-  position: absolute;
   font-weight: 300;
-  left: 50%;
-  transform: translateX(-50%);
+}
+.divider::before, .divider::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: white;
 }
 
 .animation-page-hide {
@@ -193,9 +223,11 @@ body {
   }
 }
 @media only screen and (max-width: 1500px) {
-  #work {
+  body,
+html {
     width: calc(100vw - 120px);
   }
+
   #work .container {
     margin-top: 60px;
     margin-bottom: 60px;
@@ -207,9 +239,11 @@ body {
   }
 }
 @media only screen and (max-width: 1000px) {
-  #work {
+  body,
+html {
     width: calc(100vw - 80px);
   }
+
   #work .container {
     margin-top: 40px;
     margin-bottom: 40px;
@@ -221,9 +255,11 @@ body {
   }
 }
 @media only screen and (max-width: 755px) {
-  #work {
+  body,
+html {
     width: calc(100vw - 60px);
   }
+
   #work .container {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -245,9 +281,11 @@ body {
   }
 }
 @media only screen and (max-width: 500px) {
-  #work {
+  body,
+html {
     width: calc(100vw - 40px);
   }
+
   #work .container {
     margin-top: 20px;
     margin-bottom: 20px;
