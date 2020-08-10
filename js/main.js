@@ -1,25 +1,3 @@
-// NAVIGATION REDIRECTS
-// $(document).on("click", ".to-home", function () {
-//   $("#work").hide();
-//   $("#about").hide();
-//   $("#top-menu").hide();
-//   $("#home").show();
-// });
-
-// $(document).on("click", ".to-work", function () {
-//   $("#home").hide();
-//   $("#about").hide();
-//   $("#top-menu").show();
-//   $("#work").show();
-// });
-
-// $(document).on("click", ".to-about", function () {
-//   $("#home").hide();
-//   $("#work").hide();
-//   $("#top-menu").show();
-//   $("#about").show();
-// });
-
 $(document).on("click", ".link", function (event) {
   let destinationName = event.target.innerHTML;
   let destination = document.getElementById(destinationName);
