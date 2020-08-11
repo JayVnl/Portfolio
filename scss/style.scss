@@ -1,30 +1,27 @@
-$background: #1a1a1d;
-$white: #fff;
-
 * {
   margin: 0;
   padding: 0;
 }
 
 a {
-  color: $white;
+  color: white;
   text-decoration: none;
 }
 
 body,
 html {
   width: calc(100vw - 180px);
+  margin: 0 auto;
   height: 100vh;
   background-color: #000000;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' %3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
-
-  position: absolute;
+  position: relative;
   line-height: 1.1em;
   -webkit-font-smoothing: antialiased;
 }
 
 body {
-  color: $white;
+  color: white;
   text-decoration: none;
   font-size: 1.05em;
   font-family: 'Montserrat', sans-serif;
@@ -47,7 +44,6 @@ body {
 #home {
   // display: none;
   width: 100%;
-  margin: 0 90px;
 
   .main-menu {
     width: 100%;
@@ -68,15 +64,12 @@ body {
   display: none;
   width: 100%;
   height: auto;
-  margin: 0 90px;
-  margin-top: 90px;
   text-align: center;
   overflow-y: visible;
 
   .container {
     position: relative;
-    margin-top: 90px;
-    margin-bottom: 90px;
+    margin: 90px 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 90px;
@@ -151,8 +144,6 @@ body {
   display: none;
   width: 100%;
   height: auto;
-  margin: 0 90px;
-  margin-top: 90px;
 
   .container {
     position: relative;
@@ -193,15 +184,16 @@ body {
 #top-menu {
   display: none;
   position: fixed;
-  width: 100%;
+  width: 100vw;
   height: 100px;
   line-height: 100px;
-  padding-right: 80px;
+  padding-right: 90px;
   z-index: 100;
   text-align: right;
   font-size: 1.2em;
   font-weight: 300;
   top: 0;
+  left: 0;
   box-sizing: border-box;
 
   span {
@@ -218,6 +210,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:nth-child(1) {
+    margin-top: 90px;
+  }
 
   span {
     padding: 0 25px;
@@ -277,24 +273,19 @@ body {
   }
 
   #work {
-    margin: 0 60px;
-
     .container {
-      margin-top: 60px;
-      margin-bottom: 60px;
+      margin: 60px 0;
       grid-gap: 60px;
-    }
-
-    .divider:nth-of-type(2) {
-      margin-top: 120px;
     }
   }
 
   #top-menu {
-    padding-right: 65px;
+    padding-right: 60px;
   }
 
-
+  .divider {
+    margin-top: 60px;
+  }
 }
 
 @media only screen and (max-width: 1000px) {
@@ -305,17 +296,14 @@ body {
   }
 
   #work {
-    margin: 0 40px;
-
     .container {
-      margin-top: 40px;
-      margin-bottom: 40px;
+      margin: 40px 0;
       grid-gap: 40px;
     }
   }
 
   #top-menu {
-    padding-right: 45px;
+    padding-right: 40px;
   }
 
   .divider {
@@ -331,11 +319,8 @@ body {
   }
 
   #work {
-    margin: 0 30px;
-
     .container {
-      margin-top: 30px;
-      margin-bottom: 30px;
+      margin: 30px 0;
       grid-gap: 30px;
     }
   }
@@ -351,14 +336,12 @@ body {
 }
 
 @media only screen and (max-width: 620px) {
-  #work {
+
+  #work,
+  #about {
     .container {
       grid-template-columns: 1fr;
     }
-  }
-
-  #top-menu {
-    padding-right: 10px;
   }
 }
 
@@ -370,17 +353,10 @@ body {
   }
 
   #work {
-    margin: 0 20px;
-
     .container {
-      margin-top: 20px;
-      margin-bottom: 20px;
+      margin: 20px 0;
       grid-gap: 15px;
     }
-  }
-
-  #top-menu {
-    padding-right: 10px;
   }
 
   .divider {
