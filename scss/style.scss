@@ -18,6 +18,14 @@ html {
   position: relative;
   line-height: 1.1em;
   -webkit-font-smoothing: antialiased;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
@@ -188,7 +196,6 @@ body {
   height: 100px;
   line-height: 100px;
   padding-right: 90px;
-  z-index: 100;
   text-align: right;
   font-size: 1.2em;
   font-weight: 300;
@@ -196,8 +203,18 @@ body {
   left: 0;
   box-sizing: border-box;
 
+  .bg {
+    position: inherit;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    transition: .7s ease-in-out;
+    z-index: -1;
+  }
+
   span {
     margin-left: 12px;
+    z-index: 100;
   }
 }
 

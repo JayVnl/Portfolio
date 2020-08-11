@@ -36,6 +36,6 @@ $(document).on("click", ".link", function (event) {
 
 $(window).on("scroll", function () {
   $(window).scrollTop() > 70
-    ? $("#top-menu").css("background", "rgba(0, 0, 0, .8)")
-    : $("#top-menu").css("background", "transparent");
+    ? $("#top-menu .bg").css("background", "rgba(0, 0, 0, .8)")
+    : $("#top-menu .bg").css("background", "transparent");
 });
