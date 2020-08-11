@@ -277,16 +277,24 @@ body {
   }
 
   #work {
+    margin: 0 60px;
+
     .container {
       margin-top: 60px;
       margin-bottom: 60px;
       grid-gap: 60px;
+    }
+
+    .divider:nth-of-type(2) {
+      margin-top: 120px;
     }
   }
 
   #top-menu {
     padding-right: 65px;
   }
+
+
 }
 
 @media only screen and (max-width: 1000px) {
@@ -297,6 +305,8 @@ body {
   }
 
   #work {
+    margin: 0 40px;
+
     .container {
       margin-top: 40px;
       margin-bottom: 40px;
@@ -306,6 +316,10 @@ body {
 
   #top-menu {
     padding-right: 45px;
+  }
+
+  .divider {
+    margin-top: 40px;
   }
 }
 
@@ -317,6 +331,8 @@ body {
   }
 
   #work {
+    margin: 0 30px;
+
     .container {
       margin-top: 30px;
       margin-bottom: 30px;
@@ -327,6 +343,10 @@ body {
   #top-menu {
     text-align: center;
     padding-right: 10px;
+  }
+
+  .divider {
+    margin-top: 30px;
   }
 }
 
@@ -350,6 +370,8 @@ body {
   }
 
   #work {
+    margin: 0 20px;
+
     .container {
       margin-top: 20px;
       margin-bottom: 20px;
@@ -359,5 +381,9 @@ body {
 
   #top-menu {
     padding-right: 10px;
+  }
+
+  .divider {
+    margin-top: 20px;
   }
 }
