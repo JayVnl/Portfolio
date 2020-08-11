@@ -19,9 +19,10 @@ html {
   line-height: 1.1em;
   -webkit-font-smoothing: antialiased;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 
   &::-webkit-scrollbar {
     display: none;
@@ -43,12 +44,11 @@ body {
   transition: .3s ease-in-out;
 
   &:hover {
-    opacity: .7;
+    opacity: .6;
   }
 }
 
 // HOME PAGE
-
 #home {
   // display: none;
   width: 100%;
@@ -67,7 +67,6 @@ body {
 }
 
 // WORK PAGE
-
 #work {
   display: none;
   width: 100%;
@@ -147,7 +146,6 @@ body {
 }
 
 // ABOUT PAGE
-
 #about {
   display: none;
   width: 100%;
@@ -155,23 +153,23 @@ body {
 
   .container {
     position: relative;
-    margin-top: 90px;
-    margin-bottom: 90px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-items: center;
+    margin: 90px 0;
+    display: flex;
+    flex-flow: row wrap;
     align-items: center;
+    justify-content: center;
 
     .profile {
-      width: 18vw;
-      height: 18vw;
+      width: 15vw;
+      height: 15vw;
       // background: url('/img/profile.jpg');
       background: white;
       background-size: cover;
+      margin-right: 90px;
     }
 
     .info {
-      width: 70%;
+      width: 60%;
     }
   }
 
@@ -180,15 +178,23 @@ body {
     margin: 50px 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 
-    img {
-      padding: 0 45px;
+    a {
+      margin: 0 45px;
+
+      img {
+        transition: .3s ease-in-out;
+
+        &:hover {
+          opacity: .6;
+        }
+      }
     }
   }
 }
 
 // TOP MENU
-
 #top-menu {
   display: none;
   position: fixed;
@@ -219,7 +225,6 @@ body {
 }
 
 // DIVIDER 
-
 .divider {
   position: relative;
   margin-top: 90px;
@@ -247,8 +252,16 @@ body {
   }
 }
 
-// ANIMATIONS
+// PROJECTS
+#tuta {
+  display: none;
+}
 
+#localbuddy {
+  display: none;
+}
+
+// ANIMATIONS
 .animation-page-hide {
   animation: pageHide 1s 1 ease-in-out;
 }
@@ -281,7 +294,6 @@ body {
 }
 
 // MEDIA QUERIES
-
 @media only screen and (max-width: 1500px) {
 
   body,
@@ -350,12 +362,37 @@ body {
   .divider {
     margin-top: 30px;
   }
+
+  #about {
+    .container {
+      flex-flow: column wrap;
+      margin: 30px 0;
+
+      .profile {
+        width: 40vw;
+        height: 40vw;
+        margin: 0 0 30px 0;
+      }
+
+      .info {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .icons {
+      margin: 30px 0;
+
+      a {
+        margin: 0 30px;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 620px) {
 
-  #work,
-  #about {
+  #work {
     .container {
       grid-template-columns: 1fr;
     }
@@ -378,5 +415,21 @@ body {
 
   .divider {
     margin-top: 20px;
+  }
+
+  #about {
+    .container {
+      margin: 20px 0;
+
+      .profile {
+        width: 40vw;
+        height: 40vw;
+        margin: 0 0 20px 0;
+      }
+    }
+
+    .icons {
+      margin: 20px 0;
+    }
   }
 }

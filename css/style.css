@@ -19,9 +19,10 @@ html {
   line-height: 1.1em;
   -webkit-font-smoothing: antialiased;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 body::-webkit-scrollbar,
 html::-webkit-scrollbar {
@@ -43,7 +44,7 @@ body {
   transition: 0.3s ease-in-out;
 }
 .link:hover {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 #home {
@@ -134,30 +135,37 @@ body {
 }
 #about .container {
   position: relative;
-  margin-top: 90px;
-  margin-bottom: 90px;
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  justify-items: center;
+  margin: 90px 0;
+  display: flex;
+  flex-flow: row wrap;
   align-items: center;
+  justify-content: center;
 }
 #about .container .profile {
-  width: 18vw;
-  height: 18vw;
+  width: 15vw;
+  height: 15vw;
   background: white;
   background-size: cover;
+  margin-right: 90px;
 }
 #about .container .info {
-  width: 70%;
+  width: 60%;
 }
 #about .icons {
   position: relative;
   margin: 50px 0;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-#about .icons img {
-  padding: 0 45px;
+#about .icons a {
+  margin: 0 45px;
+}
+#about .icons a img {
+  transition: 0.3s ease-in-out;
+}
+#about .icons a img:hover {
+  opacity: 0.6;
 }
 
 #top-menu {
@@ -208,6 +216,14 @@ body {
   height: 1px;
   width: 100%;
   background: white;
+}
+
+#tuta {
+  display: none;
+}
+
+#localbuddy {
+  display: none;
 }
 
 .animation-page-hide {
@@ -294,10 +310,29 @@ html {
   .divider {
     margin-top: 30px;
   }
+
+  #about .container {
+    flex-flow: column wrap;
+    margin: 30px 0;
+  }
+  #about .container .profile {
+    width: 40vw;
+    height: 40vw;
+    margin: 0 0 30px 0;
+  }
+  #about .container .info {
+    width: 100%;
+    text-align: center;
+  }
+  #about .icons {
+    margin: 30px 0;
+  }
+  #about .icons a {
+    margin: 0 30px;
+  }
 }
 @media only screen and (max-width: 620px) {
-  #work .container,
-#about .container {
+  #work .container {
     grid-template-columns: 1fr;
   }
 }
@@ -314,5 +349,17 @@ html {
 
   .divider {
     margin-top: 20px;
+  }
+
+  #about .container {
+    margin: 20px 0;
+  }
+  #about .container .profile {
+    width: 40vw;
+    height: 40vw;
+    margin: 0 0 20px 0;
+  }
+  #about .icons {
+    margin: 20px 0;
   }
 }
