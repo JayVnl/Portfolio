@@ -66,7 +66,6 @@ body {
   width: 100%;
   height: auto;
   text-align: center;
-  overflow-y: visible;
 }
 #work .container {
   position: relative;
@@ -220,10 +219,24 @@ body {
 
 #tuta {
   display: none;
+  width: 100%;
+  height: auto;
+}
+#tuta .container {
+  position: relative;
+  margin: 90px 0;
+}
+#tuta .container .title {
+  font-size: 3em;
+  opacity: 0.8;
+  display: block;
+  text-align: center;
 }
 
 #localbuddy {
   display: none;
+  width: 100%;
+  height: auto;
 }
 
 .animation-page-hide {

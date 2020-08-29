@@ -37,7 +37,7 @@ $(document).on("click", ".box", function (event) {
 
   pageAnimation(origin, destination);
 
-  link[1].style.borderBottom = "solid 1px transparent";
+  link[1].style.borderBottom = "1px solid transparent";
 });
 
 // FUNCTIONS

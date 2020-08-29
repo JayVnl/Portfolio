@@ -72,7 +72,6 @@ body {
   width: 100%;
   height: auto;
   text-align: center;
-  overflow-y: visible;
 
   .container {
     position: relative;
@@ -255,10 +254,26 @@ body {
 // PROJECTS
 #tuta {
   display: none;
+  width: 100%;
+  height: auto;
+
+  .container {
+    position: relative;
+    margin: 90px 0;
+
+    .title {
+      font-size: 3em;
+      opacity: .8;
+      display: block;
+      text-align: center;
+    }
+  }
 }
 
 #localbuddy {
   display: none;
+  width: 100%;
+  height: auto;
 }
 
 // ANIMATIONS
