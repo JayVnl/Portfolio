@@ -37,23 +37,19 @@
     <div class="container">
 
       <div class="box">
-        <div class="img-box">
-          <img src="img/thumbnails/TUTA.jpg" id="t_tuta">
-        </div>
         <div class="content">
-          <span class="client">Smart Mobile | DUO app</span><br>
+          <span class="client">Smart Mobile | DUO app 1</span><br>
           <span class="project">TUTA | The Ultimate Travel App</span>
         </div>
+        <img src="img/thumbnails/TUTA.jpg" class='img' id="t_tuta">
       </div>
 
       <div class="box">
-        <div class="img-box">
-          <img src="img/thumbnails/LocalBuddy.jpg" id="t_localbuddy">
-        </div>
         <div class="content">
-          <span class="client">Township of Eindhoven</span><br>
+          <span class="client">Smart Mobile | Group Project 1</span><br>
           <span class="project">Local Buddy | Help out your neighbourhood</span>
         </div>
+        <img src="img/thumbnails/LocalBuddy.jpg" class='img' id="t_localbuddy">
       </div>
 
     </div>
@@ -63,13 +59,11 @@
     <div class="container">
 
       <div class="box">
-        <div class="img-box">
-          <img src="img/thumbnails/YASS.jpg">
-        </div>
         <div class="content">
           <span class="client">Sprint X</span><br>
           <span class="project">YASS | Your App to Share Stories</span>
         </div>
+        <img src="img/thumbnails/YASS.jpg" class='img'>
       </div>
 
     </div>
@@ -88,7 +82,8 @@
         <br>
         <br>
         I like experimenting with new languages and gaining more experience with the ones I think are crucial for web
-        development like, HTML, CSS(SCSS) and Javascript. Languages that I have some experience with and am learning as
+        development like, HTML, CSS(SCSS) and JavaScript(TypeScript). Languages that I have some experience with and am
+        learning as
         well are Swift, PHP and Dart. I also have experience working with Vue.
       </div>
     </div>
@@ -96,9 +91,9 @@
       <span>CONTACT</span>
     </div>
     <div class="icons">
-      <a target="blank" href="#"><img src="/img/icons/mail.svg"></a>
-      <a target="blank" href="#"><img src="/img/icons/linkedin.svg"></a>
-      <a target="blank" href="#"><img src="/img/icons/twitter.svg"></a>
+      <a target="blank" href="mailto: jorrit@jorritv.nl"><img src="/img/icons/mail.svg"></a>
+      <a target="blank" href="https://www.linkedin.com/in/jorrit-verstappen-281523b8/"><img
+          src="/img/icons/linkedin.svg"></a>
     </div>
   </div>
 
@@ -123,8 +118,10 @@
 
   <script>
     VanillaTilt.init(document.querySelectorAll(".box"), {
-      max: 6,
-      speed: 5000
+      max: 5,
+      speed: 1500,
+      scale: 1.04,
+      reverse: true
     });
   </script>
 
