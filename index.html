@@ -12,8 +12,20 @@
   <link rel="stylesheet" href="css/style.css">
 
   <!-- LOAD LIBRARIES -->
-  <script src="libs/jquery.min.js"></script>
-  <script src="libs/vanilla-tilt.min.js"></script>
+  <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/vanilla-tilt.min.js"></script>
+  <script src="js/libs/three.min.js"></script>
+  <script src="js/ImprovedNoise.js"></script>
+  <script src="js/Detector.js"></script>
+  <script src="js/shaders/CopyShader.js"></script>
+  <script src="js/postprocessing/EffectComposer.js"></script>
+  <script src="js/postprocessing/RenderPass.js"></script>
+  <script src="js/postprocessing/MaskPass.js"></script>
+  <script src="js/postprocessing/ShaderPass.js"></script>
+  <script src="js/shaders/FilmShader.js"></script>
+  <script src="js/shaders/VerticalTiltShiftShader.js"></script>
+  <script src="js/shaders/HorizontalTiltShiftShader.js"></script>
+  <script src="js/shaders/VignetteShader.js"></script>
 
   <!-- LOAD CORE SCRIPTS -->
   <script src="js/main.js"></script>
@@ -21,100 +33,342 @@
 
 <body>
 
-  <!-- HOME PAGE -->
-  <div id="home" class="active">
-    <div class="main-menu">
+  <script>
+    if (!Detector.webgl) Detector.addGetWebGLMessage();
+
+    let SCREEN_WIDTH = window.innerWidth;
+    let SCREEN_HEIGHT = window.innerHeight;
+    let renderer, camera, scene, moverGroup, floorGeometry, floorMaterial, pointLight, pointLight2, pGeometry;
+    let FLOOR_RES = 60;
+    let FLOOR_HT = 650;
+    let stepCount = 0;
+    let noiseScale = 9.5;
+    let noiseSeed = Math.random() * 100;
+    let FLOOR_WIDTH = 6000;
+    let FLOOR_DEPTH = 5000;
+    let MOVE_SPD = 1.0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let windowHalfX = window.innerWidth / 2;
+    let windowHalfY = window.innerHeight / 2;
+
+    let snoise = new ImprovedNoise();
+    let textureLoader = new THREE.TextureLoader();
+    let composer, shaderTime = 0,
+      filmPass, renderPass, copyPass, effectVignette;
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+    function onDocumentMouseMove(event) {
+      mouseX = (event.clientX - (windowHalfX)) * 0.3;
+      mouseY = (event.clientY - (windowHalfY)) * 0.3;
+    }
+
+    function params() {
+      let bluriness = 5;
+      hblur.uniforms['h'].value = bluriness / window.innerWidth;
+      vblur.uniforms['v'].value = bluriness / window.innerHeight;
+      hblur.uniforms['r'].value = vblur.uniforms['r'].value = 0.5;
+      filmPass.uniforms.grayscale.value = 0;
+      filmPass.uniforms['sCount'].value = 2;
+      filmPass.uniforms['sIntensity'].value = 0.2;
+      filmPass.uniforms['nIntensity'].value = 1;
+      effectVignette.uniforms["offset"].value = 1.0;
+      effectVignette.uniforms["darkness"].value = 1.3;
+    }
+
+    init();
+    animate();
+
+    function init() {
+      camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 4000);
+      camera.position.z = 2750;
+
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x1c3c4a, 0.00045);
+
+      let hemisphereLight = new THREE.HemisphereLight(0xe3feff, 0xe6ddc8, 0.7);
+      scene.add(hemisphereLight);
+      hemisphereLight.position.y = 300;
+
+      //middle light
+      let centerLight = new THREE.SpotLight(0xb7f9ff, 1);
+      scene.add(centerLight);
+      centerLight.position.set(2500, 300, 2000);
+      centerLight.penumbra = 1;
+      centerLight.decay = 5;
+
+      pointLight = new THREE.PointLight(0xe07bff, 1.5);
+      pointLight.position.z = 200;
+      scene.add(pointLight);
+
+      pointLight2 = new THREE.PointLight(0xff4e00, 1.2);
+      pointLight2.position.z = 200;
+      scene.add(pointLight2);
+
+      let path = "img/";
+      let format = '.jpg';
+      let urls = [
+        path + 'px' + format, path + 'nx' + format,
+        path + 'py' + format, path + 'ny' + format,
+        path + 'pz' + format, path + 'nz' + format
+      ];
+
+      let reflectionCube = new THREE.CubeTextureLoader().load(urls);
+      reflectionCube.format = THREE.RGBFormat;
+
+      let cubeMaterial = new THREE.MeshPhongMaterial({
+        color: 0x447080,
+        envMap: reflectionCube,
+        combine: THREE.MixOperation,
+        side: THREE.DoubleSide,
+        reflectivity: 0.5,
+        shading: THREE.FlatShading
+      });
+
+      moverGroup = new THREE.Object3D();
+      scene.add(moverGroup);
+      let floorGroup = new THREE.Object3D();
+
+      let floorMaterial = new THREE.MeshPhongMaterial({
+        color: 0xeeeeee, //diffuse							
+        side: THREE.DoubleSide,
+        blending: THREE.AdditiveBlending,
+        wireframe: true
+      });
+
+      //add extra x width
+      floorGeometry = new THREE.PlaneGeometry(FLOOR_WIDTH + 1200, FLOOR_DEPTH, FLOOR_RES, FLOOR_RES);
+      let floorMesh = new THREE.Mesh(floorGeometry, cubeMaterial);
+      let floorMesh2 = new THREE.Mesh(floorGeometry, floorMaterial);
+
+
+      floorMesh2.position.y = 20;
+      floorMesh2.position.z = 5;
+      floorGroup.add(floorMesh);
+      floorGroup.add(floorMesh2);
+      scene.add(floorGroup);
+      floorMesh.rotation.x = Math.PI / 1.65;
+      floorMesh2.rotation.x = Math.PI / 1.65;
+      floorGroup.position.y = 180;
+
+      //Particles
+      pGeometry = new THREE.Geometry();
+      sprite = textureLoader.load("img/sprite.png");
+      for (i = 0; i < 2000; i++) {
+        let vertex = new THREE.Vector3();
+        vertex.x = 4000 * Math.random() - 2000;
+        vertex.y = -200 + Math.random() * 700;
+        vertex.z = 5000 * Math.random() - 2000;
+        pGeometry.vertices.push(vertex);
+      }
+      material = new THREE.PointsMaterial({
+        size: 10,
+        map: sprite,
+        transparent: true,
+        opacity: 0.75,
+        blending: THREE.AdditiveBlending,
+        alphaTest: 0.5
+      });
+
+
+      let particles = new THREE.Points(pGeometry, material);
+      particles.sortParticles = true;
+      moverGroup.add(particles);
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x1c3c4a);
+      document.body.appendChild(renderer.domElement);
+
+      //POST PROCESSING
+      //Create Shader Passes
+      renderPass = new THREE.RenderPass(scene, camera);
+      hblur = new THREE.ShaderPass(THREE.HorizontalTiltShiftShader);
+      vblur = new THREE.ShaderPass(THREE.VerticalTiltShiftShader);
+      effectVignette = new THREE.ShaderPass(THREE.VignetteShader);
+      copyPass = new THREE.ShaderPass(THREE.CopyShader);
+      filmPass = new THREE.ShaderPass(THREE.FilmShader);
+
+      composer = new THREE.EffectComposer(renderer);
+      composer.addPass(renderPass);
+      composer.addPass(hblur);
+      composer.addPass(vblur);
+      composer.addPass(filmPass);
+      composer.addPass(effectVignette);
+      composer.addPass(copyPass);
+      copyPass.renderToScreen = true;
+
+      params();
+
+      setWaves();
+      window.addEventListener('resize', onWindowResize, false);
+    }
+
+    function setWaves() {
+      stepCount++;
+      moverGroup.position.z = -MOVE_SPD;
+      let i;
+      let ipos;
+      let offset = stepCount * MOVE_SPD / FLOOR_DEPTH * FLOOR_RES;
+
+      for (i = 0; i < FLOOR_RES + 1; i++) {
+        for (var j = 0; j < FLOOR_RES + 1; j++) {
+          ipos = i + offset;
+          if ((i > 30) || (j < 12) || (j > 48)) {
+            floorGeometry.vertices[i * (FLOOR_RES + 1) + j].z = snoise.noise(ipos / FLOOR_RES * noiseScale,
+              j / FLOOR_RES * noiseScale, noiseSeed) * FLOOR_HT;
+          } else if (i > 25 && i < 30) {
+            floorGeometry.vertices[i * (FLOOR_RES + 1) + j].z = snoise.noise(ipos / FLOOR_RES * noiseScale,
+              j / FLOOR_RES * noiseScale, noiseSeed) * (FLOOR_HT / 1.2);
+          } else {
+            floorGeometry.vertices[i * (FLOOR_RES + 1) + j].z = snoise.noise(ipos / FLOOR_RES * noiseScale,
+              j / FLOOR_RES * noiseScale, noiseSeed) * (FLOOR_HT / 2);
+          }
+        }
+      }
+      floorGeometry.verticesNeedUpdate = true;
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      render();
+    }
+
+    function render() {
+      let timer = -0.0002 * Date.now();
+
+      pointLight.position.x = 2400 * Math.cos(timer);
+      pointLight.position.z = 2400 * Math.sin(timer);
+
+      pointLight2.position.x = 1800 * Math.cos(-timer * 1.5);
+      pointLight2.position.z = 1800 * Math.sin(-timer * 1.5);
+
+      camera.position.x += (mouseX - camera.position.x) * .05;
+      camera.position.y += (-mouseY - camera.position.y) * .05;
+      camera.lookAt(scene.position);
+
+      for (i = 0; i < 2000; i++) {
+        pGeometry.vertices[i].z += 0.5;
+        if (pGeometry.vertices[i].z > 2700) {
+          pGeometry.vertices[i].z = -2000;
+        }
+      }
+      pGeometry.verticesNeedUpdate = true;
+
+      setWaves();
+      composer.render(0.1);
+    }
+  </script>
+
+  <section>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="active">
+      <div class="main-menu">
+        <span class="link">work</span>
+        <span class="link">about</span>
+      </div>
+    </div>
+
+    <!-- WORK PAGE -->
+    <div id="work">
+      <div class="divider">
+        <span>ASSIGNMENTS</span>
+      </div>
+      <div class="container">
+
+        <div class="box">
+          <div class="content">
+            <span class="client">Smart Mobile | DUO app 1</span><br>
+            <span class="project">TUTA | The Ultimate Travel App</span>
+          </div>
+          <img src="img/thumbnails/TUTA.jpg" class='img' id="t_tuta">
+        </div>
+
+        <div class="box">
+          <div class="content">
+            <span class="client">Smart Mobile | Group Project 1</span><br>
+            <span class="project">Local Buddy | Help out your neighbourhood</span>
+          </div>
+          <img src="img/thumbnails/LocalBuddy.jpg" class='img' id="t_localbuddy">
+        </div>
+
+      </div>
+      <div class="divider">
+        <span>PROJECTS</span>
+      </div>
+      <div class="container">
+
+        <div class="box">
+          <div class="content">
+            <span class="client">Sprint X</span><br>
+            <span class="project">YASS | Your App to Share Stories</span>
+          </div>
+          <img src="img/thumbnails/YASS.jpg" class='img'>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about">
+      <div class="divider">
+        <span>BIO</span>
+      </div>
+      <div class="container">
+        <div class="profile"></div>
+        <div class="info">Hey there, I am Jorrit Verstappen, 22 years old and I study ICT & Media Design with a
+          specialisation in App
+          development at Fontys in Eindhoven. My ambition is to become a front-end developer or an app developer.
+          <br>
+          <br>
+          I like experimenting with new languages and gaining more experience with the ones I think are crucial for web
+          development like, HTML, CSS(SCSS) and JavaScript(TypeScript). Languages that I have some experience with and
+          am
+          learning as
+          well are Swift, PHP and Dart. I also have experience working with Vue.
+        </div>
+      </div>
+      <div class="divider">
+        <span>CONTACT</span>
+      </div>
+      <div class="icons">
+        <a target="blank" href="mailto: jorrit@jorritv.nl"><img src="/img/icons/mail.svg"></a>
+        <a target="blank" href="https://www.linkedin.com/in/jorrit-verstappen-281523b8/"><img
+            src="/img/icons/linkedin.svg"></a>
+      </div>
+    </div>
+
+    <!-- TOP MENU -->
+    <div id="top-menu">
+      <div class="bg"></div>
+      <span class="link">home</span>
       <span class="link">work</span>
       <span class="link">about</span>
     </div>
-  </div>
 
-  <!-- WORK PAGE -->
-  <div id="work">
-    <div class="divider">
-      <span>ASSIGNMENTS</span>
-    </div>
-    <div class="container">
-
-      <div class="box">
-        <div class="content">
-          <span class="client">Smart Mobile | DUO app 1</span><br>
-          <span class="project">TUTA | The Ultimate Travel App</span>
-        </div>
-        <img src="img/thumbnails/TUTA.jpg" class='img' id="t_tuta">
-      </div>
-
-      <div class="box">
-        <div class="content">
-          <span class="client">Smart Mobile | Group Project 1</span><br>
-          <span class="project">Local Buddy | Help out your neighbourhood</span>
-        </div>
-        <img src="img/thumbnails/LocalBuddy.jpg" class='img' id="t_localbuddy">
-      </div>
-
-    </div>
-    <div class="divider">
-      <span>PROJECTS</span>
-    </div>
-    <div class="container">
-
-      <div class="box">
-        <div class="content">
-          <span class="client">Sprint X</span><br>
-          <span class="project">YASS | Your App to Share Stories</span>
-        </div>
-        <img src="img/thumbnails/YASS.jpg" class='img'>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ABOUT PAGE -->
-  <div id="about">
-    <div class="divider">
-      <span>BIO</span>
-    </div>
-    <div class="container">
-      <div class="profile"></div>
-      <div class="info">Hey there, I am Jorrit Verstappen, 22 years old and I study ICT & Media Design with a
-        specialisation in App
-        development at Fontys in Eindhoven. My ambition is to become a front-end developer or an app developer.
-        <br>
-        <br>
-        I like experimenting with new languages and gaining more experience with the ones I think are crucial for web
-        development like, HTML, CSS(SCSS) and JavaScript(TypeScript). Languages that I have some experience with and am
-        learning as
-        well are Swift, PHP and Dart. I also have experience working with Vue.
+    <!-- WORK INFO PAGES -->
+    <div id="tuta">
+      <div class="container">
+        <span class="title">TUTA | The Ultimate Travel App</span>
       </div>
     </div>
-    <div class="divider">
-      <span>CONTACT</span>
-    </div>
-    <div class="icons">
-      <a target="blank" href="mailto: jorrit@jorritv.nl"><img src="/img/icons/mail.svg"></a>
-      <a target="blank" href="https://www.linkedin.com/in/jorrit-verstappen-281523b8/"><img
-          src="/img/icons/linkedin.svg"></a>
-    </div>
-  </div>
 
-  <!-- TOP MENU -->
-  <div id="top-menu">
-    <div class="bg"></div>
-    <span class="link">home</span>
-    <span class="link">work</span>
-    <span class="link">about</span>
-  </div>
-
-  <!-- WORK INFO PAGES -->
-  <div id="tuta">
-    <div class="container">
-      <span class="title">TUTA | The Ultimate Travel App</span>
+    <div id="localbuddy">
+      kaas2
     </div>
-  </div>
 
-  <div id="localbuddy">
-    kaas2
-  </div>
+  </section>
 
   <script>
     VanillaTilt.init(document.querySelectorAll(".box"), {
