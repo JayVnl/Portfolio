@@ -9,10 +9,11 @@
   <!-- LOAD STYLES -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 
   <!-- LOAD LIBRARIES -->
   <script src="js/libs/jquery.min.js"></script>
+  <script src="js/libs/Browserdetect.js"></script>
   <script src="js/libs/vanilla-tilt.min.js"></script>
   <script src="js/libs/three.min.js"></script>
   <script src="js/ImprovedNoise.js"></script>
@@ -38,7 +39,7 @@
 
     let SCREEN_WIDTH = window.innerWidth;
     let SCREEN_HEIGHT = window.innerHeight;
-    let renderer, camera, scene, moverGroup, floorGeometry, floorMaterial, pointLight, pointLight2, pGeometry;
+    let renderer, camera, scene, moverGroup, floorGeometry, floorMaterial, pointLight, pointLight2;
     let FLOOR_RES = 60;
     let FLOOR_HT = 650;
     let stepCount = 0;
@@ -105,30 +106,10 @@
       pointLight2.position.z = 200;
       scene.add(pointLight2);
 
-      let path = "img/";
-      let format = '.jpg';
-      let urls = [
-        path + 'px' + format, path + 'nx' + format,
-        path + 'py' + format, path + 'ny' + format,
-        path + 'pz' + format, path + 'nz' + format
-      ];
-
-      let reflectionCube = new THREE.CubeTextureLoader().load(urls);
-      reflectionCube.format = THREE.RGBFormat;
-
-      let cubeMaterial = new THREE.MeshPhongMaterial({
-        color: 0x447080,
-        envMap: reflectionCube,
-        combine: THREE.MixOperation,
-        side: THREE.DoubleSide,
-        reflectivity: 0.5,
-        shading: THREE.FlatShading
-      });
-
       moverGroup = new THREE.Object3D();
       scene.add(moverGroup);
-      let floorGroup = new THREE.Object3D();
 
+      let floorGroup = new THREE.Object3D();
       let floorMaterial = new THREE.MeshPhongMaterial({
         color: 0xeeeeee, //diffuse							
         side: THREE.DoubleSide,
@@ -138,42 +119,14 @@
 
       //add extra x width
       floorGeometry = new THREE.PlaneGeometry(FLOOR_WIDTH + 1200, FLOOR_DEPTH, FLOOR_RES, FLOOR_RES);
-      let floorMesh = new THREE.Mesh(floorGeometry, cubeMaterial);
       let floorMesh2 = new THREE.Mesh(floorGeometry, floorMaterial);
-
 
       floorMesh2.position.y = 20;
       floorMesh2.position.z = 5;
-      floorGroup.add(floorMesh);
       floorGroup.add(floorMesh2);
       scene.add(floorGroup);
-      floorMesh.rotation.x = Math.PI / 1.65;
       floorMesh2.rotation.x = Math.PI / 1.65;
       floorGroup.position.y = 180;
-
-      //Particles
-      pGeometry = new THREE.Geometry();
-      sprite = textureLoader.load("img/sprite.png");
-      for (i = 0; i < 2000; i++) {
-        let vertex = new THREE.Vector3();
-        vertex.x = 4000 * Math.random() - 2000;
-        vertex.y = -200 + Math.random() * 700;
-        vertex.z = 5000 * Math.random() - 2000;
-        pGeometry.vertices.push(vertex);
-      }
-      material = new THREE.PointsMaterial({
-        size: 10,
-        map: sprite,
-        transparent: true,
-        opacity: 0.75,
-        blending: THREE.AdditiveBlending,
-        alphaTest: 0.5
-      });
-
-
-      let particles = new THREE.Points(pGeometry, material);
-      particles.sortParticles = true;
-      moverGroup.add(particles);
 
       renderer = new THREE.WebGLRenderer({
         antialias: true
@@ -256,14 +209,6 @@
       camera.position.x += (mouseX - camera.position.x) * .05;
       camera.position.y += (-mouseY - camera.position.y) * .05;
       camera.lookAt(scene.position);
-
-      for (i = 0; i < 2000; i++) {
-        pGeometry.vertices[i].z += 0.5;
-        if (pGeometry.vertices[i].z > 2700) {
-          pGeometry.vertices[i].z = -2000;
-        }
-      }
-      pGeometry.verticesNeedUpdate = true;
 
       setWaves();
       composer.render(0.1);
@@ -371,12 +316,14 @@
   </section>
 
   <script>
-    VanillaTilt.init(document.querySelectorAll(".box"), {
-      max: 5,
-      speed: 1500,
-      scale: 1.04,
-      reverse: true
-    });
+    if (BrowserDetect.browser != 'Firefox') {
+      VanillaTilt.init(document.querySelectorAll(".box"), {
+        max: 4,
+        speed: 1500,
+        scale: 1.04,
+        reverse: true
+      });
+    }
   </script>
 
 </body>

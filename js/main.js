@@ -34,7 +34,6 @@ $(document).on("click", ".box", function (event) {
   let selected = event.target.id.slice(2);
   let destination = document.getElementById(selected);
   let link = $("#top-menu span");
-  // let link = document.getElementById("top-menu").getElementsByTagName("span");
 
   pageAnimation(origin, destination);
 
