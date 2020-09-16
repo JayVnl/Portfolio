@@ -36,6 +36,7 @@ body {
 canvas {
   position: fixed;
   z-index: -999;
+  transform: translateZ(-100px);
 }
 
 section {
@@ -143,7 +144,8 @@ section {
 #about .container .profile {
   width: 15vw;
   height: 15vw;
-  background: white;
+  border-radius: 8px;
+  background: url("/img/profile.jpg");
   background-size: cover;
   margin-right: 90px;
 }
