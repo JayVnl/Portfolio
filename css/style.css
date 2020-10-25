@@ -221,25 +221,40 @@ section {
   background: white;
 }
 
-#tuta {
+#tuta,
+#info19 {
   display: none;
   width: 100%;
   height: auto;
 }
-#tuta .container {
+#tuta .container,
+#info19 .container {
   position: relative;
-  margin: 90px 0;
+  margin: 90px 100px;
 }
-#tuta .container .title {
-  font-size: 3em;
+#tuta .container .title,
+#info19 .container .title {
+  font-size: 2.5em;
   opacity: 0.8;
   display: block;
   text-align: center;
 }
-
-#localbuddy {
-  display: none;
-  width: 100%;
+#tuta .container .info,
+#info19 .container .info {
+  margin: 45px 0 -45px 0;
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  line-height: 1.04em;
+}
+#tuta .container .logos,
+#info19 .container .logos {
+  margin: 70px 0 -45px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+#tuta .container .logos img,
+#info19 .container .logos img {
+  width: 20%;
   height: auto;
 }
 

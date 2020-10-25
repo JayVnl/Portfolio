@@ -253,28 +253,41 @@ section {
 }
 
 // PROJECTS
-#tuta {
+#tuta,
+#info19 {
   display: none;
   width: 100%;
   height: auto;
 
   .container {
     position: relative;
-    margin: 90px 0;
+    margin: 90px 100px;
 
     .title {
-      font-size: 3em;
+      font-size: 2.5em;
       opacity: .8;
       display: block;
       text-align: center;
     }
-  }
-}
 
-#localbuddy {
-  display: none;
-  width: 100%;
-  height: auto;
+    .info {
+      margin: 45px 0 -45px 0;
+      font-size: clamp(1rem, 1.25vw, 1.25rem);
+      line-height: 1.04em;
+    }
+
+    .logos {
+      margin: 70px 0 -45px 0;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+
+      img {
+        width: 20%;
+        height: auto;
+      }
+    }
+  }
 }
 
 // ANIMATIONS
