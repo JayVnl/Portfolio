@@ -436,6 +436,20 @@
         reverse: true
       });
     }
+
+    window.onpopstate = (e) => {
+      let origin = document.querySelector('.active');
+      if (e.state == null) {
+        let home = document.getElementById('home');
+        fadeMenu(origin.id, home.id);
+        pageAnimation(origin, home);
+      } else {
+        let destination = document.getElementById(e.state.page);
+        menuBorder(destination.id, null);
+        fadeMenu(origin.id, destination.id);
+        pageAnimation(origin, destination);
+      }
+    }
   </script>
 
 </body>

@@ -3,21 +3,17 @@ $(document).on("click", ".link", function (event) {
   let destinationName = event.target.innerHTML;
   let destination = document.getElementById(destinationName);
   let origin = document.querySelector(".active");
-  let menu = $("#top-menu");
-  let link = $("#top-menu span");
 
-  if (origin.id === "home") {
-    menu.fadeIn(800);
-  } else if (destinationName === "home") {
-    menu.fadeOut(800);
-  }
+  if (origin.id != destinationName) {
+    history.pushState(
+      { page: destinationName },
+      destinationName,
+      destinationName
+    );
 
-  pageAnimation(origin, destination);
-
-  for (let i = 0; i < link.length; i++) {
-    link[i].innerHTML === destinationName
-      ? (link[i].style.borderBottom = "solid 1px #fff")
-      : (link[i].style.borderBottom = "solid 1px transparent");
+    fadeMenu(origin.id, destinationName);
+    pageAnimation(origin, destination);
+    menuBorder(destinationName, null);
   }
 });
 
@@ -33,11 +29,11 @@ $(document).on("click", ".box", function (event) {
   let origin = document.querySelector(".active");
   let selected = event.target.id.slice(2);
   let destination = document.getElementById(selected);
-  let link = $("#top-menu span");
+
+  history.pushState({ page: selected }, selected, selected);
 
   pageAnimation(origin, destination);
-
-  link[1].style.borderBottom = "1px solid transparent";
+  menuBorder(null, "remove");
 });
 
 // FUNCTIONS
@@ -56,4 +52,28 @@ function pageAnimation(origin, destination) {
   setTimeout(() => {
     destination.classList.remove("animation-page-show");
   }, 2000);
+}
+
+function fadeMenu(origin, destination) {
+  let menu = $("#top-menu");
+
+  if (origin === "home") {
+    menu.fadeIn(800);
+  } else if (destination === "home") {
+    menu.fadeOut(800);
+  }
+}
+
+function menuBorder(destination, type) {
+  let link = $("#top-menu span");
+
+  if (type == "remove") {
+    link[1].style.borderBottom = "1px solid transparent";
+  } else {
+    for (let i = 0; i < link.length; i++) {
+      link[i].innerHTML === destination
+        ? (link[i].style.borderBottom = "solid 1px #fff")
+        : (link[i].style.borderBottom = "solid 1px transparent");
+    }
+  }
 }
