@@ -25,7 +25,6 @@ html {
 }
 
 body {
-  background: #000000;
   color: white;
   text-decoration: none;
   font-size: 1.05em;
@@ -36,10 +35,10 @@ body {
 canvas {
   position: fixed;
   z-index: -999;
-  transform: translateZ(-100px);
 }
 
 section {
+  height: auto;
   width: calc(100vw - 180px);
   padding-top: .1px;
   margin: 0 auto;
@@ -208,6 +207,7 @@ section {
   top: 0;
   left: 0;
   box-sizing: border-box;
+  z-index: 999999;
 
   .bg {
     position: inherit;
@@ -255,36 +255,62 @@ section {
 // PROJECTS
 #tuta,
 #info19 {
+  position: relative;
   display: none;
   width: 100%;
-  height: auto;
+  height: 100%;
 
   .container {
     position: relative;
     margin: 90px 100px;
 
     .title {
-      font-size: 2.5em;
-      opacity: .8;
+      font-size: clamp(2rem, 3vw, 3rem);
       display: block;
+      font-weight: 500;
       text-align: center;
     }
 
-    .info {
+    .text {
       margin: 45px 0 -45px 0;
       font-size: clamp(1rem, 1.25vw, 1.25rem);
       line-height: 1.04em;
+
+      a {
+        text-decoration: underline;
+        transition: .3s ease-in-out;
+      }
+
+      a:hover {
+        opacity: .5;
+      }
     }
 
-    .logos {
-      margin: 70px 0 -45px 0;
-      display: flex;
-      flex-flow: row nowrap;
-      justify-content: center;
+    .mockup {
+      margin: 45px 0 -45px 0;
+      width: 100%;
+      height: auto;
+    }
 
-      img {
-        width: 20%;
-        height: auto;
+    .technologies {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: 45px 0 0 0;
+
+      .item {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        font-size: clamp(1rem, 1.25vw, 1.25rem);
+        padding: 0 10px;
+
+        img {
+          width: auto;
+          height: 35px;
+          margin-right: 10px;
+        }
       }
     }
   }
@@ -342,6 +368,22 @@ section {
   .divider {
     margin-top: 60px;
   }
+
+  #tuta,
+  #info19 {
+    .container {
+      margin: 90px 70px;
+
+      .text,
+      .mockup {
+        margin: 30px 0 -30px 0;
+      }
+
+      .technologies {
+        margin: 30px 0 0 0;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 1000px) {
@@ -362,6 +404,23 @@ section {
 
   .divider {
     margin-top: 40px;
+  }
+
+  #tuta,
+  #info19 {
+    .container {
+      margin: 90px 50px;
+
+      .text,
+      .mockup {
+        margin: 20px 0 -20px 0;
+        text-align: center;
+      }
+
+      .technologies {
+        margin: 20px 0 0 0;
+      }
+    }
   }
 }
 
@@ -411,6 +470,26 @@ section {
       }
     }
   }
+
+  #tuta,
+  #info19 {
+    .container {
+      margin: 90px 40px;
+
+      .text,
+      .mockup {
+        margin: 15px 0 -15px 0;
+      }
+
+      .technologies {
+        margin: 15px 0 0 0;
+
+        .item {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 620px) {
@@ -451,6 +530,22 @@ section {
 
     .icons {
       margin: 20px 0;
+    }
+  }
+
+  #tuta,
+  #info19 {
+    .container {
+      margin: 90px 0;
+
+      .text,
+      .mockup {
+        margin: 10px 0 -10px 0;
+      }
+
+      .technologies {
+        margin: 10px 0 0 0;
+      }
     }
   }
 }

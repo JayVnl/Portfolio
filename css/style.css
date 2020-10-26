@@ -25,7 +25,6 @@ html::-webkit-scrollbar {
 }
 
 body {
-  background: #000000;
   color: white;
   text-decoration: none;
   font-size: 1.05em;
@@ -36,10 +35,10 @@ body {
 canvas {
   position: fixed;
   z-index: -999;
-  transform: translateZ(-100px);
 }
 
 section {
+  height: auto;
   width: calc(100vw - 180px);
   padding-top: 0.1px;
   margin: 0 auto;
@@ -184,6 +183,7 @@ section {
   top: 0;
   left: 0;
   box-sizing: border-box;
+  z-index: 999999;
 }
 #top-menu .bg {
   position: inherit;
@@ -223,9 +223,10 @@ section {
 
 #tuta,
 #info19 {
+  position: relative;
   display: none;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 #tuta .container,
 #info19 .container {
@@ -234,28 +235,53 @@ section {
 }
 #tuta .container .title,
 #info19 .container .title {
-  font-size: 2.5em;
-  opacity: 0.8;
+  font-size: clamp(2rem, 3vw, 3rem);
   display: block;
+  font-weight: 500;
   text-align: center;
 }
-#tuta .container .info,
-#info19 .container .info {
+#tuta .container .text,
+#info19 .container .text {
   margin: 45px 0 -45px 0;
   font-size: clamp(1rem, 1.25vw, 1.25rem);
   line-height: 1.04em;
 }
-#tuta .container .logos,
-#info19 .container .logos {
-  margin: 70px 0 -45px 0;
+#tuta .container .text a,
+#info19 .container .text a {
+  text-decoration: underline;
+  transition: 0.3s ease-in-out;
+}
+#tuta .container .text a:hover,
+#info19 .container .text a:hover {
+  opacity: 0.5;
+}
+#tuta .container .mockup,
+#info19 .container .mockup {
+  margin: 45px 0 -45px 0;
+  width: 100%;
+  height: auto;
+}
+#tuta .container .technologies,
+#info19 .container .technologies {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 45px 0 0 0;
+}
+#tuta .container .technologies .item,
+#info19 .container .technologies .item {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  align-items: center;
+  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  padding: 0 10px;
 }
-#tuta .container .logos img,
-#info19 .container .logos img {
-  width: 20%;
-  height: auto;
+#tuta .container .technologies .item img,
+#info19 .container .technologies .item img {
+  width: auto;
+  height: 35px;
+  margin-right: 10px;
 }
 
 .animation-page-hide {
@@ -302,6 +328,21 @@ section {
   .divider {
     margin-top: 60px;
   }
+
+  #tuta .container,
+#info19 .container {
+    margin: 90px 70px;
+  }
+  #tuta .container .text,
+#tuta .container .mockup,
+#info19 .container .text,
+#info19 .container .mockup {
+    margin: 30px 0 -30px 0;
+  }
+  #tuta .container .technologies,
+#info19 .container .technologies {
+    margin: 30px 0 0 0;
+  }
 }
 @media only screen and (max-width: 1000px) {
   section {
@@ -319,6 +360,22 @@ section {
 
   .divider {
     margin-top: 40px;
+  }
+
+  #tuta .container,
+#info19 .container {
+    margin: 90px 50px;
+  }
+  #tuta .container .text,
+#tuta .container .mockup,
+#info19 .container .text,
+#info19 .container .mockup {
+    margin: 20px 0 -20px 0;
+    text-align: center;
+  }
+  #tuta .container .technologies,
+#info19 .container .technologies {
+    margin: 20px 0 0 0;
   }
 }
 @media only screen and (max-width: 755px) {
@@ -359,6 +416,25 @@ section {
   #about .icons a {
     margin: 0 30px;
   }
+
+  #tuta .container,
+#info19 .container {
+    margin: 90px 40px;
+  }
+  #tuta .container .text,
+#tuta .container .mockup,
+#info19 .container .text,
+#info19 .container .mockup {
+    margin: 15px 0 -15px 0;
+  }
+  #tuta .container .technologies,
+#info19 .container .technologies {
+    margin: 15px 0 0 0;
+  }
+  #tuta .container .technologies .item,
+#info19 .container .technologies .item {
+    margin-bottom: 10px;
+  }
 }
 @media only screen and (max-width: 620px) {
   #work .container {
@@ -389,5 +465,20 @@ section {
   }
   #about .icons {
     margin: 20px 0;
+  }
+
+  #tuta .container,
+#info19 .container {
+    margin: 90px 0;
+  }
+  #tuta .container .text,
+#tuta .container .mockup,
+#info19 .container .text,
+#info19 .container .mockup {
+    margin: 10px 0 -10px 0;
+  }
+  #tuta .container .technologies,
+#info19 .container .technologies {
+    margin: 10px 0 0 0;
   }
 }
