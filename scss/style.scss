@@ -95,16 +95,14 @@ section {
 
       .content {
         position: absolute;
-        width: 80%;
+        width: 100%;
         background: rgba(0, 0, 0, .8);
-        border-radius: 8px;
-        left: 50%;
-        bottom: 25px;
-        transform: translateX(-50%) translateZ(20px) scaleY(0);
-        transform-origin: top;
-        padding: 15px;
-        transition: .5s ease-in-out;
-        transform-style: preserve-3d;
+        left: 0;
+        bottom: 2.6px;
+        padding: 10px 10px;
+        box-sizing: border-box;
+        z-index: 1;
+        border-radius: 0 0 6px 6px;
 
         .client {
           color: rgb(165, 165, 165);
@@ -121,21 +119,39 @@ section {
         width: 100%;
         height: auto;
         border-radius: 8px;
-        opacity: .8;
+        opacity: 1;
         transition: .5s;
-        transform-style: preserve-3d;
       }
 
-      &:hover {
-        cursor: pointer;
-
+      @media (hover: hover) and (pointer: fine) {
         .content {
-          transform: translateX(-50%) translateZ(50px) scaleY(1);
+          width: 80%;
+          border-radius: 8px;
+          left: 50%;
+          bottom: 25px;
+          transform: translateX(-50%) translateZ(20px) scaleY(0);
+          transform-origin: top;
           padding: 15px;
+          transition: .5s ease-in-out;
+          transform-style: preserve-3d;
         }
 
         .img {
-          opacity: 1;
+          opacity: .8;
+          transform-style: preserve-3d;
+        }
+
+        &:hover {
+          cursor: pointer;
+
+          .content {
+            transform: translateX(-50%) translateZ(50px) scaleY(1);
+            padding: 15px;
+          }
+
+          .img {
+            opacity: 1;
+          }
         }
       }
     }

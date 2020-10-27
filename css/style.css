@@ -89,16 +89,14 @@ section {
 }
 #work .container .box .content {
   position: absolute;
-  width: 80%;
+  width: 100%;
   background: rgba(0, 0, 0, 0.8);
-  border-radius: 8px;
-  left: 50%;
-  bottom: 25px;
-  transform: translateX(-50%) translateZ(20px) scaleY(0);
-  transform-origin: top;
-  padding: 15px;
-  transition: 0.5s ease-in-out;
-  transform-style: preserve-3d;
+  left: 0;
+  bottom: 2.6px;
+  padding: 10px 10px;
+  box-sizing: border-box;
+  z-index: 1;
+  border-radius: 0 0 6px 6px;
 }
 #work .container .box .content .client {
   color: #a5a5a5;
@@ -112,19 +110,35 @@ section {
   width: 100%;
   height: auto;
   border-radius: 8px;
-  opacity: 0.8;
-  transition: 0.5s;
-  transform-style: preserve-3d;
-}
-#work .container .box:hover {
-  cursor: pointer;
-}
-#work .container .box:hover .content {
-  transform: translateX(-50%) translateZ(50px) scaleY(1);
-  padding: 15px;
-}
-#work .container .box:hover .img {
   opacity: 1;
+  transition: 0.5s;
+}
+@media (hover: hover) and (pointer: fine) {
+  #work .container .box .content {
+    width: 80%;
+    border-radius: 8px;
+    left: 50%;
+    bottom: 25px;
+    transform: translateX(-50%) translateZ(20px) scaleY(0);
+    transform-origin: top;
+    padding: 15px;
+    transition: 0.5s ease-in-out;
+    transform-style: preserve-3d;
+  }
+  #work .container .box .img {
+    opacity: 0.8;
+    transform-style: preserve-3d;
+  }
+  #work .container .box:hover {
+    cursor: pointer;
+  }
+  #work .container .box:hover .content {
+    transform: translateX(-50%) translateZ(50px) scaleY(1);
+    padding: 15px;
+  }
+  #work .container .box:hover .img {
+    opacity: 1;
+  }
 }
 
 #about {

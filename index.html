@@ -235,7 +235,7 @@
         <div class="box">
           <div class="content">
             <span class="client">Smart Mobile | DUO app 1</span><br>
-            <span class="project">TUTA | The Ultimate Travel App</span>
+            <span class="project">TUTA</span>
           </div>
           <img src="img/thumbnails/TUTA.jpg" class='img' id="t_tuta">
         </div>
@@ -243,7 +243,7 @@
         <div class="box">
           <div class="content">
             <span class="client">Smart Mobile | DUO app 2</span><br>
-            <span class="project">Info-19 | Less data sharing, better info</span>
+            <span class="project">Info-19</span>
           </div>
           <img src="img/thumbnails/info19.jpg" class='img' id="t_info19">
         </div>
@@ -428,7 +428,8 @@
   </section>
 
   <script>
-    if (BrowserDetect.browser != 'Firefox') {
+    if (BrowserDetect.OS == 'Windows' && BrowserDetect.browser == 'Chrome' || BrowserDetect.OS == 'Mac' && BrowserDetect
+      .browser == 'Chrome') {
       VanillaTilt.init(document.querySelectorAll(".box"), {
         max: 4,
         speed: 1500,
