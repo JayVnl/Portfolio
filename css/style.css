@@ -310,6 +310,19 @@ section {
   height: 35px;
   margin-right: 10px;
 }
+#tuta .container .screenshots,
+#info19 .container .screenshots {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin: 55px 0 -35px 0;
+}
+#tuta .container .screenshots img,
+#info19 .container .screenshots img {
+  width: 100%;
+  border-radius: 20px;
+}
 
 .animation-page-hide {
   animation: pageHide 1s 1 ease-in-out;
@@ -370,6 +383,10 @@ section {
 #info19 .container .technologies {
     margin: 30px 0 0 0;
   }
+  #tuta .container .screenshots,
+#info19 .container .screenshots {
+    margin: 35px 0 -25px 0;
+  }
 }
 @media only screen and (max-width: 1000px) {
   section {
@@ -403,6 +420,10 @@ section {
   #tuta .container .technologies,
 #info19 .container .technologies {
     margin: 20px 0 0 0;
+  }
+  #tuta .container .screenshots,
+#info19 .container .screenshots {
+    margin: 22px 0 -18px 0;
   }
 }
 @media only screen and (max-width: 755px) {
@@ -462,10 +483,19 @@ section {
 #info19 .container .technologies .item {
     margin-bottom: 10px;
   }
+  #tuta .container .screenshots,
+#info19 .container .screenshots {
+    margin: 18px 0 -12px 0;
+  }
 }
 @media only screen and (max-width: 620px) {
   #work .container {
     grid-template-columns: 1fr;
+  }
+
+  #tuta .container .screenshots,
+#info19 .container .screenshots {
+    grid-template-columns: 1fr 1fr;
   }
 }
 @media only screen and (max-width: 500px) {
@@ -507,5 +537,9 @@ section {
   #tuta .container .technologies,
 #info19 .container .technologies {
     margin: 10px 0 0 0;
+  }
+  #tuta .container .screenshots,
+#info19 .container .screenshots {
+    margin: 14px 0 -5px 0;
   }
 }
