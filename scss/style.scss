@@ -94,7 +94,6 @@ section {
   display: none;
   width: 100%;
   height: auto;
-  text-align: center;
 
   .container {
     position: relative;
@@ -107,25 +106,31 @@ section {
     .box {
       position: relative;
       transform-style: preserve-3d;
+      cursor: pointer;
 
       .content {
         position: absolute;
         width: 100%;
-        background: rgba(0, 0, 0, .8);
+        height: auto;
+        text-transform: uppercase;
+        transition: all .5s ease 0s;
+        background: rgba(0, 0, 0, .7);
         left: 0;
         bottom: 2.6px;
-        padding: 10px 10px;
+        border-radius: 0 0 8px 8px;
         box-sizing: border-box;
-        z-index: 1;
-        border-radius: 0 0 6px 6px;
+        padding: clamp(10px, 1.5vw, 40px);
 
         .client {
-          color: rgb(165, 165, 165);
+          display: inline-block;
+          color: rgb(191, 191, 191);
+          font-size: clamp(.75rem, 1.2vw, 2rem);
+          margin-bottom: clamp(0px, 1.1vw, 30px);
         }
 
         .project {
-          font-size: 1.2em;
-          line-height: 30px;
+          display: block;
+          font-size: clamp(1rem, 1.5vw, 2.5rem);
         }
       }
 
@@ -140,28 +145,16 @@ section {
 
       @media (hover: hover) and (pointer: fine) {
         .content {
-          width: 80%;
-          border-radius: 8px;
-          left: 50%;
-          bottom: 25px;
-          transform: translateX(-50%) translateZ(20px) scaleY(0);
-          transform-origin: top;
-          padding: 15px;
-          transition: .5s ease-in-out;
-          transform-style: preserve-3d;
+          opacity: 0;
         }
 
         .img {
           opacity: .8;
-          transform-style: preserve-3d;
         }
 
         &:hover {
-          cursor: pointer;
-
           .content {
-            transform: translateX(-50%) translateZ(50px) scaleY(1);
-            padding: 15px;
+            opacity: 1;
           }
 
           .img {
