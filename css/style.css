@@ -241,47 +241,56 @@ section {
 }
 
 #tuta,
-#info19 {
+#info19,
+#localbuddy {
   position: relative;
   display: none;
   width: 100%;
   height: 100%;
 }
 #tuta .container,
-#info19 .container {
+#info19 .container,
+#localbuddy .container {
   position: relative;
   margin: 90px 100px;
 }
 #tuta .container .title,
-#info19 .container .title {
+#info19 .container .title,
+#localbuddy .container .title {
   font-size: clamp(2rem, 3vw, 3rem);
   display: block;
   font-weight: 500;
   text-align: center;
 }
 #tuta .container .text,
-#info19 .container .text {
+#info19 .container .text,
+#localbuddy .container .text {
   margin: 45px 0 -45px 0;
   font-size: clamp(1rem, 1.25vw, 1.25rem);
   line-height: 1.04em;
 }
 #tuta .container .text a,
-#info19 .container .text a {
+#info19 .container .text a,
+#localbuddy .container .text a {
   text-decoration: underline;
   transition: 0.3s ease-in-out;
 }
 #tuta .container .text a:hover,
-#info19 .container .text a:hover {
+#info19 .container .text a:hover,
+#localbuddy .container .text a:hover {
   opacity: 0.5;
 }
 #tuta .container .mockup,
-#info19 .container .mockup {
+#info19 .container .mockup,
+#localbuddy .container .mockup {
   margin: 45px 0 -45px 0;
   width: 100%;
   height: auto;
+  border-radius: 12px;
 }
 #tuta .container .technologies,
-#info19 .container .technologies {
+#info19 .container .technologies,
+#localbuddy .container .technologies {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -289,7 +298,8 @@ section {
   margin: 45px 0 0 0;
 }
 #tuta .container .technologies .item,
-#info19 .container .technologies .item {
+#info19 .container .technologies .item,
+#localbuddy .container .technologies .item {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -297,13 +307,15 @@ section {
   padding: 0 10px;
 }
 #tuta .container .technologies .item img,
-#info19 .container .technologies .item img {
+#info19 .container .technologies .item img,
+#localbuddy .container .technologies .item img {
   width: auto;
   height: 35px;
   margin-right: 10px;
 }
 #tuta .container .screenshots,
-#info19 .container .screenshots {
+#info19 .container .screenshots,
+#localbuddy .container .screenshots {
   max-width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -311,7 +323,8 @@ section {
   margin: 55px 0 -35px 0;
 }
 #tuta .container .screenshots img,
-#info19 .container .screenshots img {
+#info19 .container .screenshots img,
+#localbuddy .container .screenshots img {
   width: 100%;
   border-radius: 20px;
 }
@@ -362,21 +375,26 @@ section {
   }
 
   #tuta .container,
-#info19 .container {
+#info19 .container,
+#localbuddy .container {
     margin: 90px 70px;
   }
   #tuta .container .text,
 #tuta .container .mockup,
 #info19 .container .text,
-#info19 .container .mockup {
+#info19 .container .mockup,
+#localbuddy .container .text,
+#localbuddy .container .mockup {
     margin: 30px 0 -30px 0;
   }
   #tuta .container .technologies,
-#info19 .container .technologies {
+#info19 .container .technologies,
+#localbuddy .container .technologies {
     margin: 30px 0 0 0;
   }
   #tuta .container .screenshots,
-#info19 .container .screenshots {
+#info19 .container .screenshots,
+#localbuddy .container .screenshots {
     margin: 35px 0 -25px 0;
   }
 }
@@ -399,22 +417,27 @@ section {
   }
 
   #tuta .container,
-#info19 .container {
+#info19 .container,
+#localbuddy .container {
     margin: 90px 50px;
   }
   #tuta .container .text,
 #tuta .container .mockup,
 #info19 .container .text,
-#info19 .container .mockup {
+#info19 .container .mockup,
+#localbuddy .container .text,
+#localbuddy .container .mockup {
     margin: 20px 0 -20px 0;
     text-align: center;
   }
   #tuta .container .technologies,
-#info19 .container .technologies {
+#info19 .container .technologies,
+#localbuddy .container .technologies {
     margin: 20px 0 0 0;
   }
   #tuta .container .screenshots,
-#info19 .container .screenshots {
+#info19 .container .screenshots,
+#localbuddy .container .screenshots {
     margin: 22px 0 -18px 0;
   }
 }
@@ -458,25 +481,31 @@ section {
   }
 
   #tuta .container,
-#info19 .container {
+#info19 .container,
+#localbuddy .container {
     margin: 90px 40px;
   }
   #tuta .container .text,
 #tuta .container .mockup,
 #info19 .container .text,
-#info19 .container .mockup {
+#info19 .container .mockup,
+#localbuddy .container .text,
+#localbuddy .container .mockup {
     margin: 15px 0 -15px 0;
   }
   #tuta .container .technologies,
-#info19 .container .technologies {
+#info19 .container .technologies,
+#localbuddy .container .technologies {
     margin: 15px 0 0 0;
   }
   #tuta .container .technologies .item,
-#info19 .container .technologies .item {
+#info19 .container .technologies .item,
+#localbuddy .container .technologies .item {
     margin-bottom: 10px;
   }
   #tuta .container .screenshots,
-#info19 .container .screenshots {
+#info19 .container .screenshots,
+#localbuddy .container .screenshots {
     margin: 18px 0 -12px 0;
   }
 }
@@ -486,7 +515,8 @@ section {
   }
 
   #tuta .container .screenshots,
-#info19 .container .screenshots {
+#info19 .container .screenshots,
+#localbuddy .container .screenshots {
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -517,21 +547,26 @@ section {
   }
 
   #tuta .container,
-#info19 .container {
+#info19 .container,
+#localbuddy .container {
     margin: 90px 0;
   }
   #tuta .container .text,
 #tuta .container .mockup,
 #info19 .container .text,
-#info19 .container .mockup {
+#info19 .container .mockup,
+#localbuddy .container .text,
+#localbuddy .container .mockup {
     margin: 10px 0 -10px 0;
   }
   #tuta .container .technologies,
-#info19 .container .technologies {
+#info19 .container .technologies,
+#localbuddy .container .technologies {
     margin: 10px 0 0 0;
   }
   #tuta .container .screenshots,
-#info19 .container .screenshots {
+#info19 .container .screenshots,
+#localbuddy .container .screenshots {
     margin: 14px 0 -5px 0;
   }
 }

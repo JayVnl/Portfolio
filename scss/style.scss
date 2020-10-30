@@ -278,7 +278,8 @@ section {
 
 // PROJECTS
 #tuta,
-#info19 {
+#info19,
+#localbuddy {
   position: relative;
   display: none;
   width: 100%;
@@ -314,6 +315,7 @@ section {
       margin: 45px 0 -45px 0;
       width: 100%;
       height: auto;
+      border-radius: 12px;
     }
 
     .technologies {
@@ -407,7 +409,8 @@ section {
   }
 
   #tuta,
-  #info19 {
+  #info19,
+  #localbuddy {
     .container {
       margin: 90px 70px;
 
@@ -448,7 +451,8 @@ section {
   }
 
   #tuta,
-  #info19 {
+  #info19,
+  #localbuddy {
     .container {
       margin: 90px 50px;
 
@@ -517,7 +521,8 @@ section {
   }
 
   #tuta,
-  #info19 {
+  #info19,
+  #localbuddy {
     .container {
       margin: 90px 40px;
 
@@ -550,7 +555,8 @@ section {
   }
 
   #tuta,
-  #info19 {
+  #info19,
+  #localbuddy {
     .container {
       .screenshots {
         grid-template-columns: 1fr 1fr;
@@ -592,7 +598,8 @@ section {
   }
 
   #tuta,
-  #info19 {
+  #info19,
+  #localbuddy {
     .container {
       margin: 90px 0;
 
